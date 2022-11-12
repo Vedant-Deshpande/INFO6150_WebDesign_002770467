@@ -1,6 +1,6 @@
 const validateName = (fullname) =>
 {
-  var name=  /^(?=.*[a-z])(?=.*[A-Z])/;
+  var name=  /^[A-Za-z]+$/;
   if(fullname.match(name)) 
   { 
     return true;

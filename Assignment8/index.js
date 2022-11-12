@@ -42,7 +42,7 @@ app.post("/user/create", async (req, res) => {
       res.status(400).send({ message: "Email Address already exists." });
     } else {
       
-      if (validateName(req.body.fullname)) {
+      if (validateName(req.body.fullname)) { 
         // console.log("Proper fullname");
         fullnameBool = true;
       } else {
@@ -97,26 +97,10 @@ app.put("/user/edit", async (req, res) => {
         res.status(400).send({ message: "Please provide either new fullname or new password parameters only!" });
       } else if (req.body.new_fullname == undefined && req.body.new_email != undefined && req.body.new_password == undefined && req.body.confirm_new_password == undefined ) {
         // console.log("Update new email");
-        if (validateEmail(req.body.new_email)) {
-          // console.log("Seems good");
-          User.findByIdAndUpdate(user._id, {email: req.body.new_email }, { useFindAndModify: false })
-            .then(data => {
-              if (!data) {
+        // console.log("Seems good");
                 res.status(404).send({
-                  message: `Cannot update email with user id=${user._id}. User was not found!`
+                  message: `Cannot update email!!`
                 });
-              } else {
-                res.send({ message: "User email address was updated successfully." })
-              };
-            })
-            .catch(err => {
-              res.status(500).send({
-                message: "Error updating User's email with id=" + user._id
-              });
-            });
-        } else {
-          res.status(400).send({ message: "Please enter the new email correctly!" });
-        }
     } else if (req.body.new_fullname != undefined && req.body.new_email == undefined && req.body.new_password == undefined && req.body.confirm_new_password == undefined) {
             // console.log("Update fullname");
             if (validateName(req.body.new_fullname)) {
@@ -178,8 +162,8 @@ app.put("/user/edit", async (req, res) => {
 app.get("/user/getAll", async (req, res) => {
 
   User.find({}, function (err, users) {
-      users.forEach(user => delete user.password);
-      users.forEach(user => delete user.fullname);
+    users.forEach(user => delete user.fullname);  
+    users.forEach(user => delete user.password); 
       const newResult = users.map(item => {
         return {
           id: item._id,
