@@ -14,7 +14,7 @@ export default function Navbar(){
     <Link to="/AboutUs">AboutUs</Link> {" "}
     <Link to="/Contact">Contact</Link> {" "}
     <Link to="/Jobs">Jobs</Link> {" "}
-
+    <button onClick={logout}>Logout</button>
     <Routes>
           <Route path="/Home" element={<Home />} ></Route>
           <Route path="/AboutUs" element={<AboutUs />} ></Route>
@@ -22,4 +22,8 @@ export default function Navbar(){
           <Route path="/Jobs" element={<Jobs />} ></Route>
     </Routes>
 </nav>
+function logout(){
+  localStorage.removeItem('token');
+  window.location.href = "/";
+}
 }
